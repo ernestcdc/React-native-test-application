@@ -19,8 +19,8 @@ export default class Questionnaire extends Component {
     this.state = initialState;
   }
 
-  onOptionClicked = (evt, opt) => {
-    let correctAnswers = opt === this.state.options[this.state.answer]? this.state.correctAnswers + 1 : this.state.correctAnswers,
+  onOptionClicked = (option) => {
+    let correctAnswers = option === this.state.options[this.state.answer]? this.state.correctAnswers + 1 : this.state.correctAnswers,
         questionNo = this.state.questionNo + 1;
 
     if (questionNo < JSONData.questions.length) {
@@ -38,17 +38,16 @@ export default class Questionnaire extends Component {
     }
   }
 
-  goBackClicked = (evt) => {
+  goBackClicked = () => {
     this.setState(initialState);
   }
 
   render() {
     const options = this.state.options.map((option, index) => {
-      console.log(option, index);
       return (
         <View key={index} style={styles.buttonStyle}>
           <Button
-            onPress={evt => this.onOptionClicked(evt, option)}
+            onPress={e => this.onOptionClicked(option)}
             title={option}
             color="#11b8f9"
           />
@@ -69,7 +68,7 @@ export default class Questionnaire extends Component {
       `}</Text>
       <View>
         <Button
-          onPress={evt => this.goBackClicked(evt)}
+          onPress={this.goBackClicked}
           title="Go back"
           color="#11b8f9"
         />
